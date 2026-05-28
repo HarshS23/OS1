@@ -11,18 +11,15 @@ SECTIONS
 {
     . = 0x80000000;
 
-    .text
-    {
+    .text : {
         *(.text)
     }
     
-    .data 
-    {
+    .data : {
         *(.data)
     }
 
-    .bss
-    {
+    .bss : {
         _bss_start = .;
         *(.bss)
         _bss_end = .; 
