@@ -13,4 +13,5 @@ $(TARGET): $(SRC)
 	$(CXX) $(CFLAGS) $(SRC) -T $(LINKER) -o $(TARGET)
 
 run: $(TARGET)
-	qemu-system-riscv64 -machine virt -nographic -bios none -kernel $(TARGET)
+	qemu-system-riscv64 -machine virt -nographic -bios none -serial mon:stdio -kernel $(TARGET)
+	# qemu-system-riscv64 -machine virt -nographic -bios none -kernel $(TARGET)

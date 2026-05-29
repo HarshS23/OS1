@@ -1,6 +1,6 @@
 # bootloader writtern in RISC-V 
 
-.section .text # in the linker go to the .text 
+.section .text.boot # in the linker go to the .text 
 .global _start # now start 
 
 _start:
@@ -25,7 +25,7 @@ bss_loop:
     j bss_loop
 
 bss_done:
-    call main
+    call bootloader_main
 
-hang: 
+hang:
     j hang

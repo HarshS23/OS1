@@ -4,6 +4,8 @@
 
 #include "uart.hpp"
 
-extern "C" void main(){
+extern "C" void bootloader_main(){
     uart_putc('H');
+    uart_putc('\n');
+    uart_puts("BOOTING SEQUENCE INITIATED");
 }
