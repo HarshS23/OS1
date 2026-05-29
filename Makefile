@@ -6,7 +6,7 @@
 CXX = riscv64-unknown-elf-g++
 TARGET = bootloader.elf
 LINKER = linker/linker.ld
-SRC = src/main.cpp src/uart.cpp src/bootloader.S
+SRC = src/bootloader.cpp src/uart.cpp src/bootloader.S
 CFLAGS = -march=rv64imac_zicsr -mabi=lp64 -ffreestanding -nostdlib -nostartfiles -mcmodel=medany
 
 $(TARGET): $(SRC)
