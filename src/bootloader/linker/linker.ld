@@ -1,8 +1,9 @@
 /*
-        0x80000000 -- start of ram 
+       0x80000000 -- start of ram / start the bootloader at this address
         text 
         data 
         bss 
+        0x80100000; -- move kernal to this address 
 */
 
 ENTRY(_start)
