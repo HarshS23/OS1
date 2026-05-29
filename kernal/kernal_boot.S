@@ -32,5 +32,5 @@ bss_loop:
 bss_done:
     call main
 
-hang:
-    j hang
+# hang:
+#     j hang

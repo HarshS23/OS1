@@ -27,5 +27,5 @@ bss_loop:
 bss_done:
     call bootloader_main
 
-hang:
-    j hang
+# hang:
+#     j hang
