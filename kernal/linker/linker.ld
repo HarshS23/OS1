@@ -32,6 +32,7 @@ SECTIONS
         _bss_end = .; 
     }
 
-    . = . + 0x1000;
+    . = ALIGN(16);
+    . = . + 0x4000;
     _stack_top = .;
 }
