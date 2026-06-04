@@ -4,8 +4,7 @@
 .global _start # now start 
 
 _start:
-    csrr t0, mhartid
-    bnez t0, spin
+    bnez a0, spin
     # displaying interrupts 
     csrw sie, zero # machine interrupt enabled (mie) <- zero 
 

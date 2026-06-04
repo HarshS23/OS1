@@ -5,7 +5,7 @@
 # make clean    -> remove both ELFs
 
 CXX    = riscv64-unknown-elf-g++
-CFLAGS = -march=rv64imac_zicsr -mabi=lp64 -ffreestanding -nostdlib \
+CFLAGS = -march=rv32imac_zicsr -mabi=ilp32 -ffreestanding -nostdlib \
          -nostartfiles -mcmodel=medany -fno-exceptions -fno-rtti \
          -fno-threadsafe-statics
 
@@ -28,7 +28,7 @@ $(KERNEL_ELF): $(KERNEL_SRC) $(KERNEL_LINKER)
 	$(CXX) $(CFLAGS) $(KERNEL_SRC) -T $(KERNEL_LINKER) -o $(KERNEL_ELF)
 
 run: all
-	qemu-system-riscv64 -machine virt -nographic  \
+	qemu-system-riscv32 -machine virt -nographic  \
 		-serial mon:stdio \
 		-kernel $(KERNEL_ELF)
 
