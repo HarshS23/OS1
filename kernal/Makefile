@@ -7,7 +7,7 @@ CXX = riscv64-unknown-elf-g++
 TARGET = kernal.elf
 LINKER = linker/linker.ld
 SRC = kernal_main.cpp kuart.cpp kernal_boot.S 
-CFLAGS = -march=rv64imac_zicsr -mabi=lp64 -ffreestanding -nostdlib -nostartfiles -mcmodel=medany -fno-exceptions fno-rtti -fno-threadsafe-statics
+CFLAGS = -march=rv64imac_zicsr -mabi=lp64 -ffreestanding -nostdlib -nostartfiles -mcmodel=medany -fno-exceptions -fno-rtti -fno-threadsafe-statics
 
 $(TARGET): $(SRC)
 	$(CXX) $(CFLAGS) $(SRC) -T $(LINKER) -o $(TARGET)
