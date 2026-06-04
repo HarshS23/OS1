@@ -16,4 +16,4 @@ run: $(TARGET)
 	qemu-system-riscv64 -machine virt -nographic -bios none -serial mon:stdio -device loader,file=kernal/kernal.elf,addr=0x80100000 -kernel $(TARGET)	
 
 clean:
-	rm -f $(TARGET) , kernal/kernal.elf
+	rm -f $(TARGET) kernal/kernal.elf
