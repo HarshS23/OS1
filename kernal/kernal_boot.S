@@ -7,7 +7,7 @@ _start:
     csrr t0, mhartid
     bnez t0, spin
     # displaying interrupts 
-    csrw mie, zero # machine interrupt enabled (mie) <- zero 
+    csrw sie, zero # machine interrupt enabled (mie) <- zero 
 
     # setting the stack pointer 
     la sp, _stack_top

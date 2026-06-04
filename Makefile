@@ -19,21 +19,20 @@ KERNEL_LINKER = kernal/linker/linker.ld
 KERNEL_SRC    = kernal/kernal_main.cpp kernal/kuart.cpp kernal/kernal_boot.S
 
 # Default target: build both
-all: $(BOOT_ELF) $(KERNEL_ELF)
+all: $(KERNEL_ELF)
 
-$(BOOT_ELF): $(BOOT_SRC) $(BOOT_LINKER)
-	$(CXX) $(CFLAGS) $(BOOT_SRC) -T $(BOOT_LINKER) -o $(BOOT_ELF)
+# $(BOOT_ELF): $(BOOT_SRC) $(BOOT_LINKER)
+# 	$(CXX) $(CFLAGS) $(BOOT_SRC) -T $(BOOT_LINKER) -o $(BOOT_ELF)
 
 $(KERNEL_ELF): $(KERNEL_SRC) $(KERNEL_LINKER)
 	$(CXX) $(CFLAGS) $(KERNEL_SRC) -T $(KERNEL_LINKER) -o $(KERNEL_ELF)
 
 run: all
-	qemu-system-riscv64 -machine virt -nographic -bios none \
+	qemu-system-riscv64 -machine virt -nographic  \
 		-serial mon:stdio \
-		-device loader,file=$(KERNEL_ELF),addr=0x80100000 \
-		-kernel $(BOOT_ELF)
+		-kernel $(KERNEL_ELF)
 
 clean:
-	rm -f $(BOOT_ELF) $(KERNEL_ELF)
+	rm -f  $(KERNEL_ELF)
 
 .PHONY: all run clean
