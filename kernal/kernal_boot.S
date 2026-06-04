@@ -4,11 +4,8 @@
 .global _start # now start 
 
 _start:
-
-    li t0, 0x10000000
-    li t1, 'K'
-    sb t1, 0(t0)
-
+    csrr t0, mhartid
+    bnez t0, spin
     # displaying interrupts 
     csrw mie, zero # machine interrupt enabled (mie) <- zero 
 
@@ -32,5 +29,5 @@ bss_loop:
 bss_done:
     call main
 
-# hang:
-#     j hang
+spin:
+    j spin
