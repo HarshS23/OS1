@@ -6,33 +6,32 @@
         0x80100000; -- move kernal to this address 
 */
 
-ENTRY(_start)
 
-SECTIONS
-{
-    . = 0x80100000;
+ENTRY(boot)
 
-    .text : {
-        *(.text.boot)
-        *(.text)
+SECTIONS {
+    . = 0x80200000;
+
+    .text :{
+        KEEP(*(.text.boot));
+        *(.text .text.*);
     }
 
-    .rodata : {
-        *(.rodata)
+    .rodata : ALIGN(4) {
+        *(.rodata .rodata.*);
     }
 
-    .data : {
-        *(.data)
+    .data : ALIGN(4) {
+        *(.data .data.*);
     }
 
-    .bss : {
-        _bss_start = .;
-        *(COMMON)
-        *(.bss)
-        _bss_end = .; 
+    .bss : ALIGN(4) {
+        __bss = .;
+        *(.bss .bss.* .sbss .sbss.*);
+        __bss_end = .;
     }
 
-    . = ALIGN(16);
-    . = . + 0x4000;
-    _stack_top = .;
+    . = ALIGN(4);
+    . += 128 * 1024; /* 128KB */
+    __stack_top = .;
 }

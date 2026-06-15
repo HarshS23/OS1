@@ -1,7 +1,7 @@
 # bootloader writtern in RISC-V 
 
 .section .text.boot # in the linker go to the .text 
-.global _start # now start 
+.global boot # now start 
 
 _start:
     bnez a0, spin
