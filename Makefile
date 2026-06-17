@@ -29,8 +29,8 @@ boot.o: boot.s
 # Compile kernel
 
 
-kernel.o: Kernal.cc
-	$(CC) $(CFLAGS) -c Kernal.cc -o kernel.o
+kernel.o: kernal.cc
+	$(CC) $(CFLAGS) -c kernal.cc -o kernel.o
 
 # Build ISO
 iso: $(TARGET)

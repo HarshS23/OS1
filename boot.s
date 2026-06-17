@@ -57,7 +57,7 @@ _start:
 
     mov $stack_top, %esp
 
-    call kernal_main /*  This enters the high level kernal */
+    call KernalMain /*  This enters the high level kernal */
 
     /*
 	If the system has nothing more to do, put the computer into an
