@@ -92,6 +92,12 @@ void Terminal_Put_Char(char c){
         }
     }
 
+    if(c == '\n'){
+        TerminalRow++;
+        TerminalColumn = 0;
+    }
+    
+
 }
 
 void TerminalWrite(const char* data, size_t size){
