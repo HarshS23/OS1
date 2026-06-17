@@ -96,7 +96,7 @@ void Terminal_Put_Char(char c){
         TerminalRow++;
         TerminalColumn = 0;
     }
-    
+
 
 }
 
@@ -118,5 +118,5 @@ extern "C" void KernalMain(void){
     TerminalInit();
 
     // Writing a string 
-    TerminalWriteString("\n Kernal Output String");
+    TerminalWriteString("\n[OKAY] KERNAL RUNNING\n");
 }
