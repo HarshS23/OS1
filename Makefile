@@ -1,16 +1,18 @@
+
 # Toolchain
 AS = i686-elf-as
 CC = i686-elf-g++
-LD = i686-elf-gcc
+LD = i686-elf-g++
 
 # Flags
-CFLAGS = -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti
+CFLAGS = -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti -Ikernal
 LDFLAGS = -ffreestanding -O2 -nostdlib -lgcc
 
 # Files
 TARGET = myos.bin
 ISO = myos.iso
-OBJS = boot.o kernel.o
+OBJDIR = obj
+OBJS = $(OBJDIR)/boot.o $(OBJDIR)/kernel.o $(OBJDIR)/string.o $(OBJDIR)/terminal.o
 
 ISODIR = isodir
 GRUBCFG = $(ISODIR)/boot/grub/grub.cfg
@@ -18,17 +20,29 @@ GRUBCFG = $(ISODIR)/boot/grub/grub.cfg
 # Default target
 all: $(TARGET)
 
+# Make sure the obj directory exists before anything compiles into it
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+
 # Link
-$(TARGET): $(OBJS) linker.ld
-	$(LD) -T linker.ld -o $@ $(OBJS) $(LDFLAGS)
+$(TARGET): $(OBJS) linker/linker.ld
+	$(LD) -T linker/linker.ld -o $@ $(OBJS) $(LDFLAGS)
 
 # Assemble boot.s
-boot.o: boot.s
-	$(AS) boot.s -o boot.o
+$(OBJDIR)/boot.o: boot/boot.s | $(OBJDIR)
+	$(AS) boot/boot.s -o $@
 
 # Compile kernel
-kernel.o: kernal.cc
-	$(CC) $(CFLAGS) -c kernal.cc -o kernel.o
+$(OBJDIR)/kernel.o: kernal/kernal.cc | $(OBJDIR)
+	$(CC) $(CFLAGS) -c kernal/kernal.cc -o $@
+
+# Compile string routines
+$(OBJDIR)/string.o: kernal/String/string.cc | $(OBJDIR)
+	$(CC) $(CFLAGS) -c kernal/String/string.cc -o $@
+
+# Compile terminal routines
+$(OBJDIR)/terminal.o: kernal/Terminal/terminal.cc | $(OBJDIR)
+	$(CC) $(CFLAGS) -c kernal/Terminal/terminal.cc -o $@
 
 # Build ISO
 iso: $(TARGET)
@@ -47,7 +61,8 @@ run-iso: $(ISO)
 
 # Clean build artifacts
 clean:
-	rm -f $(OBJS) $(TARGET) $(ISO)
+	rm -rf $(OBJDIR)
+	rm -f $(TARGET) $(ISO)
 	rm -rf $(ISODIR)
 
 .PHONY: all iso run run-iso clean
