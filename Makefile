@@ -27,8 +27,6 @@ boot.o: boot.s
 	$(AS) boot.s -o boot.o
 
 # Compile kernel
-
-
 kernel.o: kernal.cc
 	$(CC) $(CFLAGS) -c kernal.cc -o kernel.o
 
