@@ -1,12 +1,11 @@
-#include <stdbool.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <string.h>
+#include "terminal.hh"
+#include "VGA/vga.hh"
+#include "String/string.hh"
 
-#include <tty.hpp>
 
-#include "vga.h"
-
+#define VGA_WIDTH 80
+#define VGA_HEIGHT 25
+#define VGA_MEMORY 0xB8000
 
 
 size_t TerminalRow;
@@ -65,5 +64,3 @@ void TerminalWriteString(const char* data){
     TerminalWrite(data, strlen(data));
 
 }
-
-

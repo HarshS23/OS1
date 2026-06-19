@@ -1,16 +1,11 @@
-#ifndef _VGA_H
-#define _VGA_H
+#ifndef _VGA_H_
+#define _VGA_H_
 
-#include <stdint.h>
-
-
-// definitions 
 #define VGA_WIDTH 80
 #define VGA_HEIGHT 25
 #define VGA_MEMORY 0xB8000
 
 
-// Hardware Text mode color constants 
 enum VGAColors {
     VGA_BLACK = 0,
     VGA_BLUE = 1, 
@@ -42,5 +37,6 @@ static inline uint16_t vga_entry(unsigned char uc , uint8_t colour){
     return (uint16_t) uc | (uint16_t) (colour << 8);
 
 }
+
 
 #endif
