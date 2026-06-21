@@ -10,7 +10,7 @@ build:
 	MAKE=gmake ./build.sh
 
 run: build
-	qemu-system-i386 -kernel kernel/myos.kernel
+	qemu-system-i386 -kernel kernel/OS1.kernel
 
 clean:
 	./clean.sh
