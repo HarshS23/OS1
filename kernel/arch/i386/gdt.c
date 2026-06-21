@@ -15,3 +15,5 @@ struct GDT_ENTRY {
     uint8_t base_high;
 
 }__attribute__((packed));
+
+// addiaj;ksdfj;klasdjf;lasjdfl;kajsfd;kajdsfj
