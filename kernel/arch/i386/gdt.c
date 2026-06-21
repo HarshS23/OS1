@@ -13,7 +13,8 @@ struct GDT_ENTRY {
     uint8_t access; 
     uint8_t granularity;
     uint8_t base_high;
+    uint8_t idk;
 
 }__attribute__((packed));
 
-// addiaj;ksdfj;klasdjf;lasjdfl;kajsfd;kajdsfj
+// test on new branch
