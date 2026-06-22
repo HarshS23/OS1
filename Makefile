@@ -13,4 +13,5 @@ run: build
 	qemu-system-i386 -kernel kernel/OS1.kernel
 
 clean:
-	./clean.sh
+	MAKE=gmake ./clean.sh
+# 	./clean.sh
