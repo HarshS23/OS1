@@ -8,8 +8,9 @@ struct GDT_ENTRY{
     uint16_t Low_Base;
     uint8_t Mid_Base;
     uint8_t Access_Byte;
-    uint8_t Upper_Limit : 4;
-    uint8_t Flags : 4;
+    // uint8_t Upper_Limit : 4;
+    // uint8_t Flags : 4;
+    uint8_t Gran; // This is Both upper limit and flags combined 
     uint8_t High_Base;
 }__attribute__((packed));
 
@@ -36,6 +37,9 @@ void GDT_SET(unsigned int  num ,uint32_t base, uint32_t limit, uint8_t access, u
     gdt[num].Mid_Base = (base >> 16) && 0xFF;
     gdt[num].High_Base = (base >> 24) && 0xFF;
     // for gran neeed to split it apart.
+    //gdt->Upper_Limit = (limit >> 16) && 0x0F;
+    //gdt->Flags = gran & 0xF0
+    gdt[num].Gran = ((limit >> 16) && 0x0F) | gran & 0xF0;
     
     gdt[num].Access_Byte = access;
     
