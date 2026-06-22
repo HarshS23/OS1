@@ -8,8 +8,9 @@ struct GDT_ENTRY{
     uint16_t Low_Base;
     uint8_t Mid_Base;
     uint8_t Access_Byte;
-    uint8_t Upper_Limit : 4;
-    uint8_t Flags : 4;
+    // uint8_t Upper_Limit : 4;
+    // uint8_t Flags : 4;
+    uint8_t Gran; // This is Both upper limit and flags combined 
     uint8_t High_Base;
 }__attribute__((packed));
 
