@@ -39,7 +39,7 @@ void GDT_SET(unsigned int  num ,uint32_t base, uint32_t limit, uint8_t access, u
     // for gran neeed to split it apart.
     //gdt->Upper_Limit = (limit >> 16) && 0x0F;
     //gdt->Flags = gran & 0xF0
-    gdt[num].Gran = (limit >> 16) && 0x0F; | gran & 0xF0;
+    gdt[num].Gran = ((limit >> 16) && 0x0F) | gran & 0xF0;
     
     gdt[num].Access_Byte = access;
     
