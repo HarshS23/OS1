@@ -2,7 +2,7 @@
 #define _KERNAL_GDT_H
 #include <stdbool.h>
 
-bool GDT_INIT(void);
+void GDT_INIT(void);
 
 
 

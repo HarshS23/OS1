@@ -7,13 +7,6 @@
 
 void kernel_main(void) {
 	terminal_initialize();
-
-	if (GDT_INIT()) {
-		printf("\nGDT initialized\n");
-	} else {
-		printf("\nGDT initialization failed\n");
-	}
-
-
+	GDT_INIT();
 	printf("Hello, kernel World!\n");
 }
