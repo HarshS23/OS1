@@ -1,6 +1,9 @@
 #include <stdint.h>
 #include <kernel/gdt.h>
+// #include <stdbool.h>
 
+#include <string.h>  
+#include <stdio.h>
 
 
 // Segment Discriptor 
@@ -19,7 +22,7 @@ struct GDT_ENTRY{
 struct GDT_PTR{
     uint16_t GDT_LIMIT; // This is the size of the GDT - 1 (in bytes)
     //void* ptr;  // the ptr that points to the entry in GDTs
-    uint32_t base; 
+    uint32_t base;
 }__attribute__((packed));
 
 // static vs const 
@@ -58,8 +61,6 @@ void GDT_INIT(void){
     GDT_SET_ENTRY(2, 0, 0xFFFFF, 0x92, 0xCF); // Kernal Data 
     GDT_SET_ENTRY(3, 0, 0xFFFFF, 0xFA, 0xCF); // User Code 
     GDT_SET_ENTRY(4, 0, 0xFFFFF, 0xF2, 0xCF); // User Data
-
-
 
     // need to flush it but this is an assembly command 
     gdt_flush((uint32_t) &gdtptr);
