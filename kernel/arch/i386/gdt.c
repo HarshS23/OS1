@@ -31,16 +31,32 @@ static struct GDT_ENTRY gdt[5]; // for the 5 segments Null , code, data, user, t
 static struct GDT_PTR gdtptr; // ptr to those sections 
 
 
-void GDT_SET(unsigned int  num ,uint32_t base, uint32_t limit, uint8_t access, uint8_t gran){
+void GDT_SET_ENTRY(unsigned int  num ,uint32_t base, uint32_t limit, uint8_t access, uint8_t flags){
 
-    gdt[num].Low_Base = base && 0xFFFF;
-    gdt[num].Mid_Base = (base >> 16) && 0xFF;
-    gdt[num].High_Base = (base >> 24) && 0xFF;
-    // for gran neeed to split it apart.
-    //gdt->Upper_Limit = (limit >> 16) && 0x0F;
-    //gdt->Flags = gran & 0xF0
-    gdt[num].Gran = ((limit >> 16) && 0x0F) | gran & 0xF0;
-    
+    gdt[num].Low_Base = base & 0xFFFF;
+    gdt[num].Mid_Base = (base >> 16) & 0xFF;
+    gdt[num].High_Base = (base >> 24) & 0xFF;
+
+    gdt[num].Low_Limit = limit & 0xFFFF;
+    gdt[num].Gran = ((limit >> 24) & 0x0F) | (flags & 0xF0);
+
     gdt[num].Access_Byte = access;
+    
+}
+
+void GDT_INIT(void){
+    gdtptr.GDT_LIMIT = (sizeof(struct GDT_ENTRY) * 5) - 1;
+    gdtptr.ptr = (uint32_t) &gdt;
+
+
+    GDT_SET_ENTRY(0, 0, 0, 0, 0); // Null 
+    GDT_SET_ENTRY(1, 0, 0xFFFFF, 0x9A, 0xCF); // Kernal Code 
+    GDT_SET_ENTRY(2, 0, 0xFFFFF, 0x92, 0xCF); // Kernal Data 
+    GDT_SET_ENTRY(3, 0, 0xFFFFF, 0xFA, 0xCF); // User Code 
+    GDT_SET_ENTRY(4, 0, 0xFFFFF, 0xF2, 0xCF); // User Data
+
+
+
+    // need to flush it but this is an assembly command 
     
 }
