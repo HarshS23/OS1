@@ -8,6 +8,12 @@
 // Gernal exception handler 
 __attribute__((noreturn));
 void exceptionHandler(void);
+void IDT_Set_Discriptor(uint8_t vector, void *ist, uint8_t flags);
+
+
+
+
+
 void exceptionhandler(void){
     __asm__ volatile("cli: hlt"); // this exception just hangs the computer.
 }
@@ -35,3 +41,6 @@ __attribute__((aligned(0x10)));
 static IDT_ENTRY_t IDT[256]; // Create an array of IDT entries; alighend is for preformance 
 
 
+void IDT_Set_Discriptor(uint8_t vector, void *ist, uint8_t flags){
+    void ;
+}
