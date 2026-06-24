@@ -6,7 +6,9 @@
 #include <stdbool.h>
 
 void kernel_main(void) {
+	// Initlize Terminal 
 	terminal_initialize();
+	// Initlize Global Discriptor Table
 	GDT_INIT();
-	printf("Hello, kernel World!\n");
+	printf("\nHello, kernel World!\n");
 }
