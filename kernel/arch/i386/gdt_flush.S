@@ -13,7 +13,6 @@ gdt_flush:
 	movw %ax, %ss
 
     ljmp $0x08, $.flush2  # far jump reloads CS with kernel code selector (0x08)
-    
 .flush2:
 	ret
 .size gdt_flush, . - gdt_flush

@@ -1,10 +1,13 @@
 #include <stdint.h>
 #include <kernel/gdt.h>
+// #include <stdbool.h>
 
+#include <string.h>  
+#include <stdio.h>
 
 
 // Segment Discriptor 
-struct GDT_ENTRY{
+typedef struct GDT_ENTRY_t{
     uint16_t Low_Limit;
     uint16_t Low_Base;
     uint8_t Mid_Base;
@@ -13,13 +16,13 @@ struct GDT_ENTRY{
     // uint8_t Flags : 4;
     uint8_t Gran; // This is Both upper limit and flags combined 
     uint8_t High_Base;
-}__attribute__((packed));
+}__attribute__((packed)) ;
 
 // GDT pointer 
-struct GDT_PTR{
+typedef struct GDT_PTR_t{
     uint16_t GDT_LIMIT; // This is the size of the GDT - 1 (in bytes)
     //void* ptr;  // the ptr that points to the entry in GDTs
-    uint32_t base; 
+    uint32_t base;
 }__attribute__((packed));
 
 // static vs const 
@@ -29,8 +32,8 @@ struct GDT_PTR{
 */
 
 
-static struct GDT_ENTRY gdt[5]; // for the 5 segments Null , code, data, user, task 
-static struct GDT_PTR gdtptr; // ptr to those sections 
+static struct GDT_ENTRY_t gdt[5]; // for the 5 segments Null , code, data, user, task 
+static struct GDT_PTR_t gdtptr; // ptr to those sections 
 
 extern void gdt_flush(uint32_t);
 
@@ -49,7 +52,7 @@ void GDT_SET_ENTRY(unsigned int  num ,uint32_t base, uint32_t limit, uint8_t acc
 }
 
 void GDT_INIT(void){
-    gdtptr.GDT_LIMIT = (sizeof(struct GDT_ENTRY) * 5) - 1;
+    gdtptr.GDT_LIMIT = (sizeof(struct GDT_ENTRY_t) * 5) - 1;
     gdtptr.base = (uint32_t) &gdt;
 
 
@@ -58,8 +61,6 @@ void GDT_INIT(void){
     GDT_SET_ENTRY(2, 0, 0xFFFFF, 0x92, 0xCF); // Kernal Data 
     GDT_SET_ENTRY(3, 0, 0xFFFFF, 0xFA, 0xCF); // User Code 
     GDT_SET_ENTRY(4, 0, 0xFFFFF, 0xF2, 0xCF); // User Data
-
-
 
     // need to flush it but this is an assembly command 
     gdt_flush((uint32_t) &gdtptr);
