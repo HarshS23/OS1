@@ -10,5 +10,6 @@ void kernel_main(void) {
 	terminal_initialize();
 	// Initlize Global Discriptor Table
 	GDT_INIT();
+	
 	printf("\nHello, kernel World!\n");
 }
