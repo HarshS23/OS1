@@ -1,5 +1,6 @@
 #ifndef _IDT_H_
 #define _IDT_H_
+#include <stdint.h>
 
 void IDT_INIT();
 void exceptionHandler(void);
