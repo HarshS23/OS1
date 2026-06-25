@@ -1,4 +1,5 @@
-#include <include/kernel/idt.h>
+// #include <include/kernel/idt.h>
+#include <kernel/idt.h>
 #include <stdio.h>
 #include <stdint.h>
 
