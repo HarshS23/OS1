@@ -16,7 +16,11 @@ void kernel_main(void) {
 	IDT_INIT();
 
 	// testing if the interrupt works 
-	__asm__ volatile ("int $0x3");   
+	//__asm__ volatile ("int $0x3");   
 	
 	printf("\nHello, kernel World!\n");
+
+
+	__asm__ volatile ("int $0x3");   
+
 }
