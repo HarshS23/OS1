@@ -23,13 +23,13 @@ void kernel_main(void) {
 
 	printf("\nThis is my Operating System Project. I made this to gain a better understanding"
 		    " of how a computer works more specifically an Operating System.\n"
-		    "I've currently finished the Global Discriptor Table, and a basic Interrupt \n Descriptor Table."
+		    "I've currently finished the Global Descriptor Table, and a basic Interrupt \n Descriptor Table."
 			" My future plans are to work on\n"
 			"\n1. Exceptions \n" 
 			"2. IRQ \n" 
 			"3. System Calls \n"
 			"4. Paging (Basic Demand Paging),\n"
-			"5. Memeory Management \n");
+			"5. Memory Management \n");
 	
 	printf("####################################################\n");
 	
