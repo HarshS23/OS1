@@ -30,7 +30,6 @@ char *ExceptionType[] = {
     "Intel Resevered", 
     "Intel Resevered", 
     "Intel Resevered", 
-    "Intel Resevered", 
     "Hypervisor injection Exception",
     "VMM Communication Exception",
     "Security Exception",
