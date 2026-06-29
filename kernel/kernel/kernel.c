@@ -36,6 +36,6 @@ void kernel_main(void) {
 
 
 
-	__asm__ volatile ("int $0x3");   
+	__asm__ volatile ("int $0x3");   // interrupt 
 
 }
