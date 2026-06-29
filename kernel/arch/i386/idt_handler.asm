@@ -1,4 +1,4 @@
-extern general_handler
+extern Exception_Handler
 global idt_load
 global isr_stub_table
 
@@ -35,7 +35,7 @@ isr_common:
     mov eax, esp
     add eax, 36             ; skip ds(4) + pushad(32) -> points at VectorNum
     push eax                ; arg: int_frame_t *frame
-    call general_handler
+    call Exception_Handler
     add esp, 4              ; pop the argument
 
     pop eax
@@ -46,26 +46,6 @@ isr_common:
     popad
     add esp, 8             ; drop vector + error code
     iret
-
-
-; isr_common:
-;     pushad
-;     mov ax, ds
-;     push eax
-;     mov ax, 0x10
-;     mov ds, ax
-;     mov es, ax
-;     mov fs, ax
-;     mov gs, ax
-;     call general_handler
-;     pop eax
-;     mov ds, ax
-;     mov es, ax
-;     mov fs, ax
-;     mov gs, ax
-;     popad
-;     add esp, 8          ; drop pushed int number + error code
-;     iret
 
 isr_no_err_stub 0
 isr_no_err_stub 1
