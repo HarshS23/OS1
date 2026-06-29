@@ -12,20 +12,20 @@
 
 // Gernal exception handler 
 __attribute__((noreturn));
-void general_handler(void);
+// void general_handler(void);
 void IDT_Set_Discriptor(uint8_t vector, void *ist, uint8_t flags);
 
 
 
 
 
-void general_handler(void){
-    printf("\n#######################################\n");
-    printf("          CPU Exception - halting          ");
-    printf("\n#######################################\n");
+// void general_handler(void){
+//     printf("\n#######################################\n");
+//     printf("          CPU Exception - halting          ");
+//     printf("\n#######################################\n");
 
-    __asm__ volatile("cli: hlt"); // this exception just hangs the computer.
-}
+//     __asm__ volatile("cli: hlt"); // this exception just hangs the computer.
+// }
 
 
 typedef struct { // anyting ending with _t means it is int bytes 
@@ -46,8 +46,10 @@ typedef struct {
 
 
 // making the table 
-__attribute__((aligned(0x10)));
-static IDT_ENTRY_t IDT[IDT_MAX_DESCRIPTORS]; // Create an array of IDT entries; alighend is for preformance 
+// __attribute__((aligned(0x10)));
+// static IDT_ENTRY_t IDT[IDT_MAX_DESCRIPTORS]; // Create an array of IDT entries; alighend is for preformance 
+
+static IDT_ENTRY_t IDT[IDT_MAX_DESCRIPTORS] __attribute__((aligned(0x10)));
 
 // extern void *isr_vectors[]; //from isr.asm
 extern void idt_load(uint32_t);
@@ -81,10 +83,13 @@ void IDT_INIT(void){
         vectors[vector] = true; // mark as taken after setting the descriptor
     }
 
-    __asm__ volatile ("lidt %0" : : "m" (idtr)); // load the new idt
-    __asm__ volatile ("sti"); // set the interrupt flags 
+    // __asm__ volatile ("lidt %0" : : "m" (idtr)); // load the new idt
+    // __asm__ volatile ("sti"); // set the interrupt flags 
 
-    idt_load((uint32_t) &idtr);   // no sti yet
+    // idt_load((uint32_t) &idtr);   // no sti yet
+
+    idt_load((uint32_t) &idtr);   // load IDT (defined in idt_handler.asm)
+    __asm__ volatile ("sti");     // enable interrupts
 
     
 }

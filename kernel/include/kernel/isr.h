@@ -23,4 +23,8 @@ typedef struct {
 }int_frame_t; // frame in bytes
 
 
+
+extern char *ExceptionType[];
+void Exception_Handler(int_frame_t *frame);
+
 #endif
