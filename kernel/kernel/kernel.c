@@ -36,6 +36,6 @@ void kernel_main(void) {
 
 
 
-	__asm__ volatile ("int $0x3");   // interrupt to check if the IDT works. 
+	__asm__ volatile ("int $0xE");   // Page Fault Interrupt checking if it works! 
 
 }
