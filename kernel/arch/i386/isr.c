@@ -2,7 +2,6 @@
 
 
 
-
 char *ExceptionType[] = {
     "Division Error",
     "Debug",
@@ -41,7 +40,10 @@ char *ExceptionType[] = {
 static void print_hex(uint32_t v) {
     char buf[9];
     const char *d = "0123456789ABCDEF";
-    for (int i = 7; i >= 0; i--) { buf[i] = d[v & 0xF]; v >>= 4; }
+    for (int i = 7; i >= 0; i--) { 
+        buf[i] = d[v & 0xF]; v >>= 4; 
+    }
+
     buf[8] = '\0';
     printf("0x%s", buf);
 }
@@ -56,22 +58,22 @@ void Exception_Handler(int_frame_t *intFrame){
     printf("              CPU EXCEPTION:           ");
     printf("\n");
     printf("%s", (Vector < 32) ? ExceptionType[Vector] : "Unknown");
-    printf("\n  vector     = "); print_hex(Vector);
-    printf("\n  error code = "); print_hex(intFrame->ErrorCode);
-    printf("\n  eip        = "); print_hex(intFrame->eip);
-    printf("\n  cs         = "); print_hex(intFrame->cs);
-    printf("\n  eflags     = "); print_hex(intFrame->eflags);
+    printf("\n  vector               = "); print_hex(Vector);
+    printf("\n  error code           = "); print_hex(intFrame->ErrorCode);
+    printf("\n  eip                  = "); print_hex(intFrame->eip);
+    printf("\n  cs                   = "); print_hex(intFrame->cs);
+    printf("\n  eflags               = "); print_hex(intFrame->eflags);
 
     if(Vector == 14){ // page fault
         uint32_t faultAddr;
         __asm__ volatile("mov %%cr2, %0" : "=r"(faultAddr));
-        printf("\n  cr2 (fault addr) = "); print_hex(faultAddr);
+        printf("\n  cr2 (fault addr)     = "); print_hex(faultAddr);
     }
 
     printf("\n-------------------------------------\n");
     __asm__ volatile("cli");
-    for (;;) __asm__ volatile("hlt");
-
+    __asm__ volatile("hlt");
+    // for (;;) 
 
 
 }
